@@ -1,0 +1,32 @@
+Step1: Open the workspace. First we need to login to the ST account. 
+Help -> STM32Cube Update -> Connection to myST.
+Window opens, enter your credentials.
+
+Step2: After logging in successfully, create a project.
+File -> New -> STM32 Project.
+ 
+Step3: Select the board selector option. Commercial Part number is the name of the board that we are using.
+ 
+Step4: Type the project name. Don’t use blank spaces in the name. then, click finish.
+
+Step5: Follow the same steps to create a new project. Do the following configuration settings. This microcontroller has a 12-bit ADC. 
+The default baud rate of the board is 15200. 
+ 
+Step6: Make changes in the code as required.
+Changes made: USER CODE BEGIN PV
+int mic;
+while loop()
+HAL_ADC_Start(&hadc1);
+HAL_ADC_PollForConversion(&hadc1, HAL_MAX_DELAY);
+mic = HAL_ADC_GetValue(&hadc1);
+printf("MIC VALUES: %d\r\n",mic);
+HAL_Delay(500);
+
+Step7: To use the UART communication protocol, as special code is supposed to be included. 
+USER CODE BEGIN 4 
+int __io_putchar(int ch){
+	HAL_UART_Transmit(&huart2, (uint8_t*)&ch, 1, HAL_MAX_DELAY);
+	return ch;
+}
+
+Step8: Build and run the project to see the output on serial monitor window.
